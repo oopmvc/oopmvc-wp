@@ -11,6 +11,7 @@
 
 include dirname(__FILE__).'/adminsettings.php';
 include dirname(__FILE__).'/hidedefault.php';
+include dirname(__FILE__).'/add_shortcode.php';
 
 // adding wp_head settings in front end 
 function oopmvc_frontend_head(){   $options = get_option('oopmvcwp_options');    echo $options['general_wp_head'];  }

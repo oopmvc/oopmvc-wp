@@ -31,6 +31,9 @@ function general_wp_footer_cb(){
 	
   $options = get_option('oopmvcwp_options'); 
   echo "</td></tr><tr><td colspan='2'><textarea id='general_wp_footer' name='oopmvcwp_options[general_wp_footer]' rows='7' cols='50' type='textarea' class='large-text code'>{$options['general_wp_footer']}</textarea>";
+
+  echo '<small>examples:<br />&lt;script src="https://unpkg.com/vue/dist/vue.js">&lt;/script><br />
+        &lt;script src="https://unpkg.com/axios/dist/axios.min.js">&lt;/script></small>';
  
 }
 
