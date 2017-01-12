@@ -2,7 +2,9 @@
 OOPMVC Wordpress 
 
 # Required Pluing 
-> custom-post-type-ui
+> Plugins Used
+
+- custom-post-type-ui
 
 - advanced-custom-fields
 
