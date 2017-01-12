@@ -8,7 +8,7 @@ function oopmvcwp_settings_init()
     register_setting('oopmvcwp', 'oopmvcwp_options'); 
 
      
-	add_settings_section('general_section', 'General Settings', 'general_section_cb', __FILE__);
+	add_settings_section('general_section', 'General Settings', 'general_section_cb', __FILE__); 
 	add_settings_field('general_wp_head',  'WP HEAD(  wp_head ) ', 'general_wp_head_cb', __FILE__, 'general_section' ); 
 	add_settings_field('general_wp_footer',  'WP FOOTER(  wp_footer ) ', 'general_wp_footer_cb', __FILE__, 'general_section' ); 
  
@@ -25,6 +25,11 @@ function general_wp_head_cb(){
 	
   $options = get_option('oopmvcwp_options'); 
   echo "</td></tr><tr><td colspan='2'><textarea id='general_wp_head' name='oopmvcwp_options[general_wp_head]' rows='7' cols='50' type='textarea' class='large-text code'>{$options['general_wp_head']}</textarea>";
+
+  echo '<small>&lt;script type="text/javascript"><br />
+		&nbsp;&nbsp;&nbsp;base_url = "'.get_bloginfo('url').'";<br />
+		&nbsp;&nbsp;&nbsp;api_url  = "'.get_bloginfo('url').'/wp-json/wp/v2/";<br />
+		&lt;/script></small>';
  
 }
 function general_wp_footer_cb(){

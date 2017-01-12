@@ -15,8 +15,9 @@ function oopmvc_hide_default_plugins() {
 	  echo '<style>
 	   #toplevel_page_edit-post_type-acf,
 	   #toplevel_page_cptui_main_menu,
+	   #menu-posts-vue_block,
 	   a[href="options-general.php?page=codepress-admin-columns"] 
-
+       
 	   { display: none !important;}
 	  </style>';
 
