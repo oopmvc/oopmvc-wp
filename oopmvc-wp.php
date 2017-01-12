@@ -8,46 +8,15 @@
 * Author URI: http://www.oopmvc.com/team/shahinul-islam
 * License: MIT 
 */
-  
-register_activation_hook( __FILE__,   'oopmvc_vuewptraining_up' );
-register_deactivation_hook( __FILE__, 'oopmvc_vuewptraining_down' );
 
-/**
-* Register the plugins 
-*/
+include dirname(__FILE__).'/adminsettings.php';
+include dirname(__FILE__).'/hidedefault.php';
 
-function oopmvc_vuewptraining_up(){ 
-   
-}
+// adding wp_head settings in front end 
+function oopmvc_frontend_head(){   $options = get_option('oopmvcwp_options');    echo $options['general_wp_head'];  }
+add_action('wp_head', 'oopmvc_frontend_head');
 
-/**
-* De-register the plugins 
-*/
-function oopmvc_vuewptraining_down(){
-	 
-
-}
-  
-function oopmvc_hide_default_plugins() {
- 
-  $current_user = wp_get_current_user();
-  // Super admin users emails 
-  $developer_emails = array(
-  								'oopmvc.website@gmail.com', 
-  								'shahinbdboy@gmail.com'
-  						    );
-
-
-  if(!  in_array($current_user->user_email , $developer_emails )){
-	  echo '<style>
-	   #toplevel_page_edit-post_type-acf,
-	   #toplevel_page_cptui_main_menu,
-	   a[href="options-general.php?page=codepress-admin-columns"] 
-
-	   { display: none !important;}
-	  </style>';
-
-	}
-}
-add_action('admin_head', 'oopmvc_hide_default_plugins');
+// adding wp_footer settings in front end 
+function oopmvc_frontend_footer(){ $options = get_option('oopmvcwp_options');   echo $options['general_wp_footer']; }
+add_action('wp_footer', 'oopmvc_frontend_footer'); 
 
