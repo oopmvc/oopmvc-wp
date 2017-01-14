@@ -14,6 +14,7 @@ include dirname(__FILE__).'/hidedefault.php';
 include dirname(__FILE__).'/add_shortcode.php';
 include dirname(__FILE__).'/vue_module.php';
 include dirname(__FILE__).'/editarea_syntax.php';
+include dirname(__FILE__).'/training.php';
 
 $oopmvc_all_js_scripts = array();
 
