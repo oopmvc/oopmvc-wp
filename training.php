@@ -33,14 +33,10 @@
 
 
 
-
-
 function filter_training_json( $data, $post, $context ) {
 
 	$extra_field = array(
-		'training_document_type',
-		'training_doc_file',
-		'training_video'
+		'training_document_type' 
 		);
  
     foreach ($extra_field as $key ) {

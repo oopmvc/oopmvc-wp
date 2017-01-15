@@ -1,4 +1,3 @@
-
 <div id="vue-training"> 
 <div  v-if="showsingle" id="selectedpostshow" class="modal is-active"> 
  <div class="modal-background"></div>
@@ -9,11 +8,7 @@
     </header>
     <section class="modal-card-body" >
        <div v-html="singlepostselected.content.rendered"></div>
-       <a v-if="singlepostselected.training_document_type == 'PDF'" :href="singlepostselected.training_doc_file.url">   DOWNLOAD NOW  </a>
-       <div v-if="singlepostselected.training_document_type == 'Video'" v-html="singlepostselected.training_video"> </div>
-        
-	
-       
+       <div v-html="recordreturn.content" :class="{ loading: loading }"></div>
     </section>
     <footer class="modal-card-foot"> 
       <a class="button" @click="closeSingle">Close</a>
@@ -50,33 +45,44 @@ var player = new MediaElementPlayer('#player1');
 
  <<script type="text/javascript">
  	new Vue({
-		el:"#vue-training",
-		data: { 
-		     singlepostselected : [],
-		     showsingle: false,
-		     posts: []
-		},
-		methods:{
-		   showpost(post){
-		        this.showsingle = true;
-			this.singlepostselected = post;
-		   },
-		   closeSingle(){
-		       this.showsingle = false,
-		       this.singlepostselected  = [];
-		   }
-		},
-		mounted : function () {
-				        axios.get(api_url +'/wp/v2/training').then((response) => {
-				             this.posts = response.data;
-					            
-		          
-		       })
-		    },
-		updated: function(){
-		      jQuery('#ourtraining').mixItUp( );
-		 }
-		})
+el:"#vue-training",
+data: { 
+     singlepostselected : [],
+     showsingle: false,
+     recordreturn : '',
+     loading : true,
+     posts: []
+},
+methods:{
+   showpost(post){
+        this.showsingle = true;
+        this.recordreturn  = ''; 
+        this.singlepostselected = post;
+        this.loading = true;
+          axios.get(base_url +'/wp-admin/admin-ajax.php?action=record_training&id='+  post.id ).then((response) => {
+		            this.loading = false;
+			    this.recordreturn = response.data;        
+          
+         })
+        
+   },
+   closeSingle(){
+       this.showsingle = false,
+       this.recordreturn  = '',
+       this.singlepostselected  = [];
+   }
+},
+mounted : function () {
+		        axios.get(api_url +'/wp/v2/training').then((response) => {
+		             this.posts = response.data;
+			            
+          
+       })
+    },
+updated: function(){
+      jQuery('#ourtraining').mixItUp( );
+ }
+})
  
 
  </script>
