@@ -1,0 +1,116 @@
+
+<div id="vue-categories"> 
+         
+<div v-for="(post, index) in posts"  > 
+         <button class="filter active" data-filter=".mix" v-if="index==0">All</button> 
+         <button class="filter" :data-filter="'.'+post.slug">{{post.name}}   </button>   
+        
+</div>
+  
+<br class="clear" />
+</div>
+
+
+
+
+
+<script type="text/javascript">
+	new Vue({
+		 el:"#vue-categories", 
+		data: { 
+		     posts: []
+		}, 
+		 created: function () {
+		        axios.get(api_url +'/wp/v2/trainingcategories').then((response) => {
+		             this.posts = response.data;
+
+		       })
+		    }
+		})
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+<div id="vue-training"> 
+<div  v-if="showsingle" id="selectedpostshow" class="modal is-active"> 
+ <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title"> {{ singlepostselected.title.rendered  }}  </p>
+      <button class="delete" @click="closeSingle"></button>
+    </header>
+    <section class="modal-card-body" v-html="singlepostselected.content.rendered">
+      
+    </section>
+    <footer class="modal-card-foot"> 
+      <a class="button" @click="closeSingle">Close</a>
+    </footer>
+  </div>
+</div> 
+<div class="row">
+   <div v-for="post in posts" :class="post.taxonomy" class="col-xs-6 col-sm-3 mix trainingpost" :data-my-order="post.ID">
+       <h3><a @click="showpost(post)"> {{ post.title.rendered }} </a></h3> 
+       <a href="javascript:void(0)" @click="showpost(post)" v-if="post.training_document_type == 'PDF'"> <img src="https://cdn0.iconfinder.com/data/icons/thin-files-documents/57/thin-068_file_document_pdf_adobe_acrobat-512.png" alt="Download PDF" /> </a>
+       <a href="javascript:void(0)" @click="showpost(post)" v-if="post.training_document_type == 'Video'"><img src="http://www.pngmart.com/files/1/Video-Icon-PNG-Clipart.png" alt="View Video" /> </a>
+       <div v-html="post.excerpt.rendered"></div> 
+       
+  </div></div>
+
+</div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+ <<script type="text/javascript">
+ 	new Vue({
+		el:"#vue-training",
+		data: { 
+		     singlepostselected : [],
+		     showsingle: false,
+		     posts: []
+		},
+		methods:{
+		   showpost(post){
+		        this.showsingle = true;
+			this.singlepostselected = post;
+		   },
+		   closeSingle(){
+		       this.showsingle = false,
+		       this.singlepostselected  = [];
+		   }
+		},
+		mounted : function () {
+				        axios.get(api_url +'/wp/v2/training').then((response) => {
+				             this.posts = response.data;
+					            
+		          
+		       })
+		    },
+		updated: function(){
+		      jQuery('#ourtraining').mixItUp( );
+		 }
+		})
+ 
+
+ </script>
